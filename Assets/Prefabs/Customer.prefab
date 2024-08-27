@@ -257,7 +257,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TickDuration: 2
-  target: {fileID: 0}
   moveSpeed: 5
   rotationSpeed: 5
   destinationReachedTreshold: 0.1
+  colors:
+  - {fileID: 2100000, guid: 82a48ab8af2a58640a5b41e9bd8e5d33, type: 2}
+  - {fileID: 2100000, guid: 81e96a0654d19e14aa09e95ea47e0e7c, type: 2}
+  - {fileID: 2100000, guid: 719ef1adb8047fd4fa421fab873b20c2, type: 2}
+  - {fileID: 2100000, guid: 3dca37e23701a06488aecdccafc10713, type: 2}
+  - {fileID: 2100000, guid: 426d673bc20777043a0ca140761d1b13, type: 2}
+  - {fileID: 2100000, guid: b1402dc845eb4c54caef61c98e285dba, type: 2}
+  - {fileID: 2100000, guid: d71c64fce30e8644fb91648edefe3d68, type: 2}
+  - {fileID: 2100000, guid: 2e6c854a3c5a95645a08f7c3c4a13c53, type: 2}
+  - {fileID: 2100000, guid: a7afa44d70cb1924ca99ed13b9d912f5, type: 2}
+  - {fileID: 2100000, guid: 3f46ecf9e6f6e3140b52b90bda2a9091, type: 2}
+  material: {fileID: 2100000, guid: 426d673bc20777043a0ca140761d1b13, type: 2}

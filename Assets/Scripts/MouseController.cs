@@ -6,12 +6,6 @@ public class MouseController : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
 
-    private void Awake()
-    {
-
-    }
-
-    // Update is called once per frame
     private void Update()
     {
         Vector3 mousePosition = Input.mousePosition;
@@ -26,7 +20,6 @@ public class MouseController : MonoBehaviour
         {
             if(hitFound && hit.transform.tag == "Stand")
             {
-                Debug.Log(hit.transform.name + "Item Added");
                 hit.transform.GetComponent<StandRefiill>().AddItem();
             }
         }
@@ -35,7 +28,6 @@ public class MouseController : MonoBehaviour
         {
             if(hitFound && hit.transform.tag == "Stand")
             {
-                Debug.Log(hit.transform.name + "Item Removed");
                 hit.transform.GetComponent<StandRefiill>().RemoveItem();
             }
         }

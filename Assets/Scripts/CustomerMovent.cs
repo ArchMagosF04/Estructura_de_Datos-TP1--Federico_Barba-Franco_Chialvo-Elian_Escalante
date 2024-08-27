@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class CustomerMovent : MonoBehaviour
 {
+    private Transform target;
     private Transform exit;
+    private ShopperQueue shopperQueue;
+    private MeshRenderer _renderer;
     private bool isMoving = false;
     private float enterTime;
-
-    [SerializeField] private float TickDuration = 2f;
-    [SerializeField] private Transform target;
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float rotationSpeed = 5f;
-    [SerializeField] private float destinationReachedTreshold = 1.5f;
-
-    private ShopperQueue shopperQueue;
     private int queueCount;
     private int queuePosition;
     private int currentQueuePosition;
+    
+
+    [SerializeField] private float TickDuration = 2f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float destinationReachedTreshold = 1.5f;
+    [SerializeField] private Material[] colors;
 
     private void Awake()
     {
         shopperQueue = FindObjectOfType<ShopperQueue>();
+        _renderer = GetComponent<MeshRenderer>();
     }
 
     private void Start()
@@ -29,37 +32,48 @@ public class CustomerMovent : MonoBehaviour
         queueCount = shopperQueue._Queue.Count - 1;
         queuePosition = queueCount;
         currentQueuePosition = queuePosition;
+        _renderer.material = colors[Random.Range(0, colors.Length)];
     }
 
     private void Update()
     {
         if(exit == null)
         {
-            queueCount = shopperQueue._Queue.Count - 1;
-
-            if (queueCount < queuePosition)
-            {
-                currentQueuePosition--;
-                SetTargetTransform(shopperQueue.LinePositions[currentQueuePosition]);
-            }
-            queuePosition = queueCount;
+            CheckPositionInLine();
         }
 
         if (target != null && isMoving)
         {
-            Vector3 direction = target.position - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation,rotation,rotationSpeed*Time.deltaTime);
-       
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
-            if (distanceToTarget >= destinationReachedTreshold)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-            }
-            else
-            {
-                isMoving = false;
-            }
+            Movement();
+        }
+    }
+
+    private void CheckPositionInLine()
+    {
+        queueCount = shopperQueue._Queue.Count - 1;
+
+        if (queueCount < queuePosition)
+        {
+            currentQueuePosition--;
+            SetTargetTransform(shopperQueue.LinePositions[currentQueuePosition]);
+        }
+        queuePosition = queueCount;
+    }
+
+    private void Movement()
+    {
+        Vector3 direction = target.position - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+
+        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+        if (distanceToTarget >= destinationReachedTreshold)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            isMoving = false;
         }
     }
 
